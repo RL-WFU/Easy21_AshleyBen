@@ -28,9 +28,6 @@ def begin_game():
     player_card = Card(True)
     initial_state = State(dealer_card.cardValue, player_card.cardValue)
 
-    print(initial_state.dealer_first)
-    print(initial_state.player_total)
-    print(initial_state.is_terminal)
     return initial_state
 
 
@@ -68,7 +65,7 @@ def checkWinner(s, dealer_total):
     elif dealer_total == s.player_total:
         r = 0
     else:
-        print("ERROR IN CHECKWINNNER")
+        print("ERROR IN CHECKWINNNER") # FIXME: Can be removed after debugging, make the r = 0 statement the else statement
     return r
 
 
@@ -93,5 +90,3 @@ def step(s, a):
         reward = checkWinner(next_s, dealer_total)
 
     return next_s, reward
-
-begin_game()
