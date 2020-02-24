@@ -73,11 +73,17 @@ def checkWinner(s, dealer_total):
 def step(s, a):
     next_s = s
     reward = 0
+    dealer_total = next_s.dealer_first
+
+    while next_s.player_total < 12:
+        next_s.player_total += hit()
+        if checkBust(next_s.player_total):
+            next_s.is_terminal = True
 
     # Chooses hit
     if a == 0:
         next_s.player_total += hit()
-        if checkBust(next_s, next_s.player_total):
+        if checkBust(next_s.player_total):
             next_s.is_terminal = True
 
     # Chooses stick
