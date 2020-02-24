@@ -72,4 +72,5 @@ for episode in range(episodes):
 
     if episode % 100 == 0:
         print("Episode %i, Mean-Return %.3f, Wins %.2f" % (episode, meanReturn, wins / (episode + 1)))
+
 print(wins)
