@@ -45,7 +45,7 @@ def eGreedy(eps_dealer, eps_player):
 env = Easy21
 
 episodes = 10000
-avgReturn = 0
+meanReturn = 0
 wins = 0
 
 for episode in range(episodes):
@@ -58,13 +58,15 @@ for episode in range(episodes):
         NSA[state_now.dealer_first - 1, state_now.player_total - 12, action] += 1
 
         next_state, r = env.step(state_now, action)
+        if next_state.is_terminal:
+            break
 
         SAR.append([state_now.dealer_first, state_now.player_total, action, r])
         state_now = next_state
 
     G = sum([sar[-1] for sar in SAR])  # sum all rewards
     for (state_now.dealer_first, state_now.player_total, action, _) in SAR:
-        Q[state_now.dealer_first, state_now.player_total, action] += alpha_t(state_now.dealer_first, state_now.player_total, action) * (G - Q[state_now.dealer_first, state_now.player_total, action])
+        Q[state_now.dealer_first-1, state_now.player_total-12, action] += alpha_t(state_now.dealer_first, state_now.player_total, action) * (G - Q[state_now.dealer_first-1, state_now.player_total-12, action])
 
     meanReturn = meanReturn + 1 / (episode + 1) * (G - meanReturn)
     if r == 1:
